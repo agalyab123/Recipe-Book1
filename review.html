@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recipe Reviews</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-gray-800 text-white p-4 flex gap-4">
+    <a href="index.html" class="hover:text-gray-300">Home</a>
+    <a href="review.html" class="hover:text-gray-300">Reviews</a>
+  </nav>
+
+  <!-- Toast -->
+  <div id="toast"
+       class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300">
+    Your review is submitted!
+  </div>
+
+  <!-- Review Container -->
+  <div class="max-w-xl mx-auto mt-8 p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4 text-center">Leave a Review</h1>
+    <form id="reviewForm" class="space-y-4">
+      <input type="text" id="name" placeholder="Your Name" required
+             class="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      <textarea id="review" placeholder="Your Review" required
+                class="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+      <div class="flex gap-1 items-center">
+        <span class="text-sm font-semibold mr-2">Rating:</span>
+        <div id="starRating" class="flex gap-1 text-yellow-400 cursor-pointer select-none">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+      </div>
+      <button type="submit"
+              class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition">
+        Submit
+      </button>
+    </form>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">Reviews</h2>
+    <div id="reviewsList" class="space-y-2"></div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewsList = document.getElementById('reviewsList');
+    const toast = document.getElementById('toast');
+    let selectedRating = 5;
+
+    // Handle star rating selection
+    const starRating = document.getElementById('starRating');
+    starRating.addEventListener('click', (e) => {
+      if (e.target.tagName === 'SPAN') {
+        selectedRating = Array.from(starRating.children).indexOf(e.target) + 1;
+        updateStars(selectedRating);
+      }
+    });
+
+    function updateStars(rating) {
+      Array.from(starRating.children).forEach((star, index) => {
+        star.classList.toggle('text-yellow-400', index < rating);
+        star.classList.toggle('text-gray-300', index >= rating);
+      });
+    }
+
+    // Load existing reviews
+    document.addEventListener('DOMContentLoaded', () => {
+      const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+      reviews.forEach(renderReview);
+    });
+
+    // Handle form submission
+    reviewForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const reviewText = document.getElementById('review').value.trim();
+
+      if (name && reviewText) {
+        const reviewObj = { name, review: reviewText, rating: selectedRating };
+        saveReview(reviewObj);
+        renderReview(reviewObj);
+        reviewForm.reset();
+        selectedRating = 5;
+        updateStars(selectedRating);
+        showToast('Your review is submitted!');
+      }
+    });
+
+    // Save review to localStorage
+    function saveReview(review) {
+      const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+      reviews.push(review);
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+    }
+
+    // Update localStorage after edits/deletes
+    function updateLocalStorage() {
+      const reviews = [];
+      document.querySelectorAll('.review').forEach(div => {
+        const name = div.querySelector('.name').textContent;
+        const review = div.querySelector('.text').textContent;
+        const rating = div.querySelectorAll('.star.text-yellow-400').length;
+        reviews.push({ name, review, rating });
+      });
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+    }
+
+    // Render a review
+    function renderReview({ name, review, rating }) {
+      const div = document.createElement('div');
+      div.classList.add('review', 'p-3', 'bg-gray-100', 'rounded', 'shadow-sm', 'space-y-1');
+
+      // Generate stars
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        stars += `<span class="star ${i <= rating ? 'text-yellow-400' : 'text-gray-300'}">★</span>`;
+      }
+
+      div.innerHTML = `
+        <p class="font-semibold name">${name}</p>
+        <div class="stars">${stars}</div>
+        <p class="text">${review}</p>
+        <div class="flex gap-2 mt-2">
+          <button class="edit text-blue-600 hover:underline text-sm">Edit</button>
+          <button class="delete text-red-600 hover:underline text-sm">Delete</button>
+        </div>
+      `;
+
+      // Edit functionality
+      div.querySelector('.edit').addEventListener('click', () => {
+        const newName = prompt('Edit name:', name) || name;
+        const newReview = prompt('Edit review:', review) || review;
+        const newRating = parseInt(prompt('Edit rating (1-5):', rating)) || rating;
+
+        if (newName && newReview && newRating >= 1 && newRating <= 5) {
+          div.querySelector('.name').textContent = newName;
+          div.querySelector('.text').textContent = newReview;
+
+          // Update stars
+          let updatedStars = '';
+          for (let i = 1; i <= 5; i++) {
+            updatedStars += `<span class="star ${i <= newRating ? 'text-yellow-400' : 'text-gray-300'}">★</span>`;
+          }
+          div.querySelector('.stars').innerHTML = updatedStars;
+
+          updateLocalStorage();
+          showToast('Review updated!');
+        }
+      });
+
+      // Delete functionality
+      div.querySelector('.delete').addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete this review?')) {
+          div.remove();
+          updateLocalStorage();
+          showToast('Review deleted!');
+        }
+      });
+
+      reviewsList.appendChild(div);
+    }
+
+    // Show toast message
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2000);
+    }
+
+    // Initialize star colors
+    updateStars(selectedRating);
+  </script>
+
+</body>
+</html>
+

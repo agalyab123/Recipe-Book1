@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe's</title>
+
+      <!-- link to cdn -->
+      <link href="
+      https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css
+      " rel="stylesheet">
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="bg-red-700 p-3 flex justify-between h-14 shadow-xl sticky top-0 z-10">
+        <h1 class="text-2xl">Recipe Sharing</h1>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="size-6 md:hidden">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+    
+    
+        <ul class=" gap-5 text-gray-600 hidden md:flex">
+            <li>
+                <a class="hover:underline hover:text-black" href="index.html">Home</a>
+    
+            </li>
+            <li>
+                <a class="hover:underline hover:text-black" href="recipe.html">Recipe</a>
+            </li>
+            <li>
+                <a class="hover:underline hover:text-black" href="review.html">Review</a>
+            </li>
+          
+            
+
+
+    
+        </ul>
+    </nav>
+
+    <!-- products -->
+    <section class="p-4 text-center">
+        <h1 class="text-3xl font-bold mt-5 text-center">Our Recipes</h1>
+        <input id="search" style="width: 80%;" placeholder="Search for a Product..." type="text" class="p-2 m-3 border border-black">
+        <div id="product-container" class="grid grid-cols-2 md:grid-cols-4 gap-5 col-span-2 mt-5">
+            <div class="text-center">
+                <img class="inline transform hover:-translate-y-2 hover:shadow-xl transition" src="https://media.istockphoto.com/id/1253934130/photo/mutton-masala-curry-in-plastic-container-for-home-delivery.jpg?s=612x612&w=0&k=20&c=KQTQTS9RK7f4wt1_ZgRuvFsUMvc2MP1GF3yQqgaVShQ=">
+                <h1>Chicken Curry</h1>
+                <p>Thinly slice the spring onions, reserving a handful of the sliced green parts for garnish. ...
+Add the tomatoes, curry powder and ground ginger and cook for 3-4 minutes. ...
+Add the chicken and cook for 5 minutes. ...
+Add 250ml/9fl oz water and bring to the boil. ...
+While the chicken is cooking, prepare the rice.</p>
+                <button class="bg-red-500 text-white p-2 rounded">View List</button>
+            </div>
+            <div class="text-center">
+                <img class="inline transform hover:-translate-y-2 hover:shadow-xl transition" src="https://media.istockphoto.com/id/1133534691/photo/mutton-korma.jpg?s=612x612&w=0&k=20&c=Jw9zlfbkgUKM-sDKLBE-8X2igfz0O5DC1YkIh-oC8JY=">
+                <h1>Mutton Curry</h1>
+                <p>Heat Mustard Oil and Add Spices: Heat mustard oil in a thick-bottomed pan until it smokes, then cool slightly. ...
+Sauté Onions and Mutton: Add sliced onions to the pan and cook until browned and crisp. ...
+Add Spices and Ginger-Garlic Paste: ...
+Add Tomato Puree and Green Chilies: ...
+Slow Cook and Finish:</p><br>
+                <button class="bg-red-500 text-white p-2 rounded">View List</button>
+            </div>
+            <div class="text-center">
+                <img class="inline transform hover:-translate-y-2 hover:shadow-xl  transition" src="https://www.shutterstock.com/image-photo/egg-roast-curry-mutta-gravy-260nw-1586333257.jpg">
+                <h1>Egg Curry</h1>
+                <p>Peel eggs and halve lengthways.
+Scoop out yolks and place in a bowl.
+Add curry powder, mayonnaise and salt to yolks.
+Mash with a fork and combine.
+Dollop a mixture onto halved egg whites.
+Sprinkle lightly with curry powder and garnish with sprigs of parsley.</p>
+                <button class="bg-red-500 text-white p-2 rounded">View List</button>
+            </div>
+            <div class="text-center">
+                <img class="inline transform hover:-translate-y-2 hover:shadow-xl  transition" src="https://www.shutterstock.com/image-photo/fried-chicken-kebab-kabab-tikka-600nw-2323261937.jpg">
+                <h1>Chicken 65</h1>
+                <p>Mix the yogurt with all the spices, corn flour, ginger-garlic paste, and some salt. ...
+Add the chicken pieces to this and mix well.
+Refrigerate this mixture for about 2 hours to let the marinade work its magic on the chicken pieces. ...
+When you are ready to fry, heat the oil in a kadai or pan.</p><br>
+                <button class="bg-red-500 text-white p-2 rounded">View List</button>
+            </div>
+
+            <div class="text-center">
+                <img class="inline transform hover:-translate-y-2 hover:shadow-xl transition" src="https://t4.ftcdn.net/jpg/02/75/39/23/360_F_275392381_9upAWW5Rdsa4UE0CV6gRu2CwUETjzbKy.jpg">
+                <h1>Veg Meals</h1>
+                <p>9Grilled korma tofu steaks with lentil and spinach cauliflower rice. ...
+10Curried tofu and vegetable patties. ...
+11Curried burger. ...
+12Vegan chickpea tikka masala. ...
+13Indian-style potato and pea smash. ...
+14Spiced potatoes and chickpeas. ...
+15Turmeric cauliflower steaks.</p>
+                <button class="bg-red-500 text-white p-2 rounded">View List</button>
+            </div>
+
+            <div class="text-center">
+                <img class="inline transform hover:-translate-y-2 hover:shadow-xl transition" src="https://www.shutterstock.com/image-photo/rajma-roti-classic-wholesome-combination-600nw-2318352715.jpg">
+                <h1>Chappati</h1>
+                <p>Making the Dough. Add two cups of wheat flour to a bowl, add a pinch of salt and mix everything. ...
+ Add Water. ...
+ Add a Teaspoon of Oil and Make a Soft Nonsticky Dough. ...
+ Rolling. ...
+ Making Chapatis. ...
+ Enjoy the Chapatis With Any Curry.</p>
+                <button class="bg-red-500 text-white p-2 rounded">View List</button>
+            </div>
+
+            <div class="text-center">
+                <img class="inline transform hover:-translate-y-2 hover:shadow-xl transition" src="https://www.shutterstock.com/image-photo/fish-curry-kerala-parathas-porotta-260nw-2293273817.jpg">
+                <h1>Poratta</h1>
+                <p>Wheat Flour (Atta): The primary ingredient for making the paratha dough. 
+Salt: Adds flavor and helps with the dough's structure.  
+Ghee or Oil Can be added to the dough and also used for cooking. </p>
+                <button class="bg-red-500 text-white p-2 rounded">View List</button>
+            </div>
+
+            <div class="text-center">
+                <img class="inline transform hover:-translate-y-2 hover:shadow-xl  transition" src="https://img.freepik.com/free-photo/delicious-indian-dosa-composition_23-2149086051.jpg?semt=ais_hybrid&w=740">
+                <h1>Masala Dosa</h1>
+                <p>Prepare Dosa Batter:Soak rice and urad dal in separate bowls for 4-6 hours. ...
+Process rice and urad dal mixture in commercial grinder or food processor. ...
+Salt to taste.
+Cover mixture and let sit overnight...</p>
+                <button class="bg-red-500 text-white p-2 rounded">View List</button>
+            </div>
+
+        </div>
+
+    </section>
+
+
